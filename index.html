@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>School Club Store</title>
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Firebase SDK -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    // Firebase config
+    const firebaseConfig = {
+      apiKey: "AIzaSyBKF93Hr8Wyf8ifSapvE6LsvwlVAboi2rA",
+      authDomain: "school-club-store.firebaseapp.com",
+      projectId: "school-club-store",
+      storageBucket: "school-club-store.firebasestorage.app",
+      messagingSenderId: "991285580248",
+      appId: "1:991285580248:web:dd32faed95508a3779a2ad"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // Convert YouTube URL to embed
+    function convertVideoLink(url) {
+      if (!url) return url;
+      if (url.includes("youtube.com/watch?v=")) {
+        const videoId = url.split("v=")[1];
+        return `https://www.youtube.com/embed/${videoId}`;
+      }
+      return url; 
+    }
+
+    // Render cards
+    async function loadProducts() {
+      const clubsContainer = document.getElementById("clubs-container");
+
+      try {
+        const querySnapshot = await getDocs(collection(db, "products"));
+        console.log("Documents found:", querySnapshot.size);
+
+        if (querySnapshot.empty) {
+          clubsContainer.innerHTML = "<p style='text-align:center;color:red;'>No products found in Firestore.</p>";
+          return;
+        }
+
+        let clubs = {};
+        querySnapshot.forEach(doc => {
+          const data = doc.data();
+          if (!clubs[data.club]) clubs[data.club] = [];
+          clubs[data.club].push(data);
+        });
+
+        for (const [clubName, products] of Object.entries(clubs)) {
+          const clubSection = document.createElement("section");
+          clubSection.classList.add("club-section");
+
+          let clubHTML = `<h2 class="club-title">${clubName} Club</h2>
+          <div class="card-grid">`;
+
+          products.forEach((p, idx) => {
+            clubHTML += `
+              <div class="card">
+                <div class="media-slider" id="slider-${clubName}-${idx}">
+                  ${p.images && p.images.length > 0 ? p.images.map(img => 
+                    `<div class="slide"><img src="${img}" alt="Project Image"></div>`
+                  ).join("") : ""}
+                  ${p.videos && p.videos.length > 0 ? p.videos.map(vid => 
+                    `<div class="slide"><iframe src="${convertVideoLink(vid)}" frameborder="0" allowfullscreen></iframe></div>`
+                  ).join("") : ""}
+                </div>
+                <h3>${p.title || "Untitled"}</h3>
+                <p>Price: ₹${p.price || "N/A"}</p>
+              </div>
+            `;
+          });
+
+          clubHTML += `</div>`;
+          clubSection.innerHTML = clubHTML;
+          clubsContainer.appendChild(clubSection);
+        }
+
+        initSliders();
+      } catch (err) {
+        console.error("Error loading products:", err);
+        clubsContainer.innerHTML = "<p style='text-align:center;color:red;'>Error loading products. Check console.</p>";
+      }
+    }
+
+    function initSliders() {
+      document.querySelectorAll(".media-slider").forEach(slider => {
+        let index = 0;
+        const slides = slider.querySelectorAll(".slide");
+        if (slides.length <= 1) return;
+
+        slides.forEach((s, i) => s.style.display = i === 0 ? "block" : "none");
+
+        setInterval(() => {
+          slides[index].style.display = "none";
+          index = (index + 1) % slides.length;
+          slides[index].style.display = "block";
+        }, 4000);
+      });
+    }
+
+    window.onload = loadProducts;
+  </script>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="logo">🏫 School Club Store</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About Us</a>
+      <a href="team.html">Our Team</a>
+      <a href="contact.html">Contact Us</a>
+    </nav>
+  </header>
+
+  <!-- Main -->
+  <main id="clubs-container"></main>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 School Club Store. All Rights Reserved.</p>
+  </footer>
+</body>
+</html>
