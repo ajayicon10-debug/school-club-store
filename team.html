@@ -1,38 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Our Team</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Team - Icon Robotics Club</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  .team-grid { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; }
+  .team-member { text-align: center; width: 180px; }
+  .team-member img { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; }
+</style>
 </head>
 <body>
+  <!-- Header -->
   <header>
-    <div class="header-content">
-      <img src="school-logo.png" alt="School Logo">
-      <h1>ABC International School</h1>
-    </div>
+    <div class="logo">🏫 School Club Store</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About Us</a>
+      <a href="team.html" class="active">Our Team</a>
+      <a href="contact.html">Contact Us</a>
+    </nav>
   </header>
 
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="about.html">About Us</a>
-    <a href="team.html">Our Team</a>
-    <a href="contact.html">Contact Us</a>
-  </nav>
+  <!-- Main Content -->
+  <main>
+    <section class="team-section">
+      <h2>Our Team</h2>
 
-  <section class="club-section">
-    <h2>Our Team</h2>
-    <p>Guided by our teachers and mentors:</p>
-    <ul style="list-style:none;padding:0;">
-      <li>Mr. Dhanraj – Robotics Club Mentor</li>
-      <li>Mrs. Anita – Art Club Mentor</li>
-      <li>Mr. George – Eco Club Mentor</li>
-    </ul>
-  </section>
+      <h3>Club Teachers</h3>
+      <div class="team-grid">
+        <div class="team-member">
+          <img src="images/teachers/teacher1.jpg" alt="Teacher Name">
+          <p><strong>Ms. Sharma</strong></p>
+          <p>Robotics Club Teacher</p>
+        </div>
+      </div>
 
+      <h3>Student Members</h3>
+      <div class="team-grid">
+        <div class="team-member">
+          <img src="images/students/student1.jpg" alt="Student Name">
+          <p><strong>Riya</strong></p>
+          <p>Class 8, Section A, Red House</p>
+        </div>
+        <div class="team-member">
+          <img src="images/students/student2.jpg" alt="Student Name">
+          <p><strong>Arjun</strong></p>
+          <p>Class 9, Section B, Blue House</p>
+        </div>
+        <!-- Add more students similarly -->
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
   <footer>
-    <p>&copy; 2025 ABC International School</p>
+    <p>&copy; 2025 School Club Store. All Rights Reserved.</p>
   </footer>
 </body>
 </html>
