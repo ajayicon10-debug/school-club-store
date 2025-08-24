@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>School Club Store</title>
+  <title>Icon Robotics Club</title>
   <link rel="stylesheet" href="style.css">
 
-  <!-- Firebase SDK -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
     import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-    // Firebase config
     const firebaseConfig = {
       apiKey: "AIzaSyBKF93Hr8Wyf8ifSapvE6LsvwlVAboi2rA",
       authDomain: "school-club-store.firebaseapp.com",
@@ -24,23 +23,24 @@
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
-    // Convert YouTube URL to embed
+    // Base URL for GitHub Pages
+    const baseURL = "https://ajayicon10-debug.github.io/school-club-store/";
+
     function convertVideoLink(url) {
       if (!url) return url;
       if (url.includes("youtube.com/watch?v=")) {
-        const videoId = url.split("v=")[1];
+        const videoId = url.split("v=")[1].split("&")[0];
         return `https://www.youtube.com/embed/${videoId}`;
       }
-      return url; 
+      return url;
     }
 
-    // Render cards
     async function loadProducts() {
       const clubsContainer = document.getElementById("clubs-container");
 
       try {
         const querySnapshot = await getDocs(collection(db, "products"));
-        console.log("Documents found:", querySnapshot.size);
+        console.log("Firebase docs count:", querySnapshot.size);
 
         if (querySnapshot.empty) {
           clubsContainer.innerHTML = "<p style='text-align:center;color:red;'>No products found in Firestore.</p>";
@@ -50,6 +50,20 @@
         let clubs = {};
         querySnapshot.forEach(doc => {
           const data = doc.data();
+          console.log("Product data:", data);
+
+          // Convert relative paths to GitHub Pages URLs
+          if (data.images) {
+            data.images = data.images.map(img => {
+              if (img.startsWith("http")) return img;
+              return baseURL + img;
+            });
+          }
+
+          if (data.videos) {
+            data.videos = data.videos.map(vid => convertVideoLink(vid));
+          }
+
           if (!clubs[data.club]) clubs[data.club] = [];
           clubs[data.club].push(data);
         });
@@ -59,24 +73,44 @@
           clubSection.classList.add("club-section");
 
           let clubHTML = `<h2 class="club-title">${clubName} Club</h2>
-          <div class="card-grid">`;
+      <div class="card-grid">`;
 
           products.forEach((p, idx) => {
+            const images = Array.isArray(p.images) ? p.images : [];
+            const videos = Array.isArray(p.videos) ? p.videos : [];
+
+            let slidesHTML = "";
+
+            images.forEach(img => {
+              slidesHTML += `<div class="slide"><img src="${img}" alt="Project Image"></div>`;
+            });
+
+            videos.forEach(vid => {
+              slidesHTML += `<div class="slide"><iframe src="${vid}" frameborder="0" allowfullscreen></iframe></div>`;
+            });
+
+            if (slidesHTML === "") {
+              slidesHTML = `<div class="slide"><img src="images/placeholder.png" alt="No media available"></div>`;
+            }
+            
+
+            // WhatsApp message
+            const phoneNumber = "919420157827"; // replace with your number
+            const message = encodeURIComponent(`I want to buy "${p.title}" with price ₹${p.price}`);
+            const whatsappURL = `https://wa.me/${phoneNumber}?text=${message}`;
+
             clubHTML += `
-              <div class="card">
-                <div class="media-slider" id="slider-${clubName}-${idx}">
-                  ${p.images && p.images.length > 0 ? p.images.map(img => 
-                    `<div class="slide"><img src="${img}" alt="Project Image"></div>`
-                  ).join("") : ""}
-                  ${p.videos && p.videos.length > 0 ? p.videos.map(vid => 
-                    `<div class="slide"><iframe src="${convertVideoLink(vid)}" frameborder="0" allowfullscreen></iframe></div>`
-                  ).join("") : ""}
-                </div>
-                <h3>${p.title || "Untitled"}</h3>
-                <p>Price: ₹${p.price || "N/A"}</p>
-              </div>
-            `;
+    <div class="card">
+      <div class="media-slider" id="slider-${clubName}-${idx}">
+        ${slidesHTML}
+      </div>
+      <h3>${p.title || "Untitled"}</h3>
+      <p>Price: ₹${p.price || "N/A"}</p>
+      <a href="${whatsappURL}" target="_blank" class="order-btn">Order Now</a>
+    </div>
+  `;
           });
+
 
           clubHTML += `</div>`;
           clubSection.innerHTML = clubHTML;
@@ -92,23 +126,26 @@
 
     function initSliders() {
       document.querySelectorAll(".media-slider").forEach(slider => {
-        let index = 0;
         const slides = slider.querySelectorAll(".slide");
-        if (slides.length <= 1) return;
+        if (slides.length === 0) return;
 
+        let index = 0;
         slides.forEach((s, i) => s.style.display = i === 0 ? "block" : "none");
 
-        setInterval(() => {
-          slides[index].style.display = "none";
-          index = (index + 1) % slides.length;
-          slides[index].style.display = "block";
-        }, 4000);
+        if (slides.length > 1) {
+          setInterval(() => {
+            slides[index].style.display = "none";
+            index = (index + 1) % slides.length;
+            slides[index].style.display = "block";
+          }, 4000);
+        }
       });
     }
 
     window.onload = loadProducts;
   </script>
 </head>
+
 <body>
   <!-- Header -->
   <header>
@@ -126,7 +163,8 @@
 
   <!-- Footer -->
   <footer>
-    <p>&copy; 2025 School Club Store. All Rights Reserved.</p>
+    <p>&copy; 2025 Robotics Club Store. All Rights Reserved.</p>
   </footer>
 </body>
+
 </html>
