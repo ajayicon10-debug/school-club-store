@@ -1,62 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Our Team - Icon Robotics Club</title>
-<link rel="stylesheet" href="style.css">
-<style>
-  .team-grid { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; }
-  .team-member { text-align: center; width: 180px; }
-  .team-member img { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Team-Robotics Club</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <!-- <link rel="stylesheet" href="nav.css"> -->
+  <style>
+    .team-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .team-member {
+      text-align: center;
+      width: 180px;
+    }
+
+    .team-member img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+  </style>
 </head>
+
+
+
 <body>
-  <!-- Header -->
   <header>
-    <div class="logo">🏫 School Club Store</div>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="about.html">About Us</a>
-      <a href="team.html" class="active">Our Team</a>
-      <a href="contact.html">Contact Us</a>
-    </nav>
+    <div id="nav-placeholder"></div>
   </header>
 
-  <!-- Main Content -->
   <main>
-    <section class="team-section">
+    <section class="team-page-section">
       <h2>Our Team</h2>
-
-      <h3>Club Teachers</h3>
-      <div class="team-grid">
-        <div class="team-member">
-          <img src="images/teachers/teacher1.jpg" alt="Teacher Name">
-          <p><strong>Ms. Sharma</strong></p>
-          <p>Robotics Club Teacher</p>
-        </div>
-      </div>
 
       <h3>Student Members</h3>
       <div class="team-grid">
         <div class="team-member">
           <img src="images/students/student1.jpg" alt="Student Name">
-          <p><strong>Riya</strong></p>
-          <p>Class 8, Section A, Red House</p>
+          <h4>Riya</h4>
+          <p class="class-info">Class 8, Section A</p>
+          <p class="house-info" style="background-color: red;">Trojan House</p>
         </div>
         <div class="team-member">
           <img src="images/students/student2.jpg" alt="Student Name">
-          <p><strong>Arjun</strong></p>
-          <p>Class 9, Section B, Blue House</p>
+          <h4>Riya</h4>
+          <p class="class-info">Class 8, Section A</p>
+          <p class="house-info" style="background-color: yellow;">Unicorn House</p>
         </div>
-        <!-- Add more students similarly -->
+        <div class="team-member">
+          <img src="images/students/student1.jpg" alt="Student Name">
+          <h4>Riya</h4>
+          <p class="class-info">Class 8, Section A</p>
+          <p class="house-info" style="background-color: green;">Titan House</p>
+        </div>
+        <div class="team-member">
+          <img src="images/students/student1.jpg" alt="Student Name">
+          <h4>Riya</h4>
+          <p class="class-info">Class 8, Section A</p>
+          <p class="house-info" style="background-color: blue;">Phonix House</p>
+        </div>
+        <div class="team-member">
+          <img src="images/students/student1.jpg" alt="Student Name">
+          <h4>Riya</h4>
+          <p class="class-info">Class 8, Section A</p>
+          <p class="house-info" style="color: red;">Trojan House</p>
+        </div>
+        <div class="team-member">
+          <img src="images/students/student1.jpg" alt="Student Name">
+          <h4>Riya</h4>
+          <p class="class-info">Class 8, Section A</p>
+          <p class="house-info" style="color: red;">Trojan House</p>
+        </div>
       </div>
+
+      <h3>Club Teachers</h3>
+      <div class="team-grid">
+        <div class="team-member teacher-card">
+          <img src="images/teachers/teacher1.jpg" alt="Teacher Name">
+          <h4>Mr. Ajay Khajindar</h4>
+          <p>Robotics Club Teacher</p>
+        </div>
+      </div>
+
     </section>
   </main>
 
-  <!-- Footer -->
   <footer>
-    <p>&copy; 2025 School Club Store. All Rights Reserved.</p>
+    <div id="footer-placeholder"></div>
   </footer>
+
+  <script src="nav.js"></script>
 </body>
+
+
+
 </html>
