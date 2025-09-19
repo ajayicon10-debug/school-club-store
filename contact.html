@@ -4,123 +4,111 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact Us - School Club Store</title>
+  <title>Contact Us - Robotics Club</title>
+  <!-- Link to Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <!-- Link to your main stylesheet -->
   <link rel="stylesheet" href="style.css">
-  <style>
-    form {
-      max-width: 500px;
-      margin: 20px auto;
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    }
-
-    input,
-    textarea {
-      width: 100%;
-      padding: 10px;
-      margin: 8px 0;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-    }
-
-    button {
-      padding: 10px 15px;
-      background: #007bff;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background: #0056b3;
-    }
-
-    .msg {
-      text-align: center;
-      margin-top: 15px;
-      font-weight: bold;
-    }
-  </style>
 </head>
 
 <body>
   <!-- Header -->
   <header>
-    <div class="logo">🏫 Icon Robotics Club</div>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="about.html">About Us</a>
-      <a href="team.html">Our Team</a>
-      <a href="contact.html" class="active">Contact Us</a>
-    </nav>
+    <div id="nav-placeholder"></div>
   </header>
 
   <!-- Main Content -->
-  <main>
-    <section class="contact-section">
-      <h2>Contact Us</h2>
-      <form id="contactForm">
-  <label>Name:</label>
-  <input type="text" id="name" required placeholder="Enter your name">
+  <main class="contact-container">
+    <div class="contact-header">
+      <h1>Get in Touch</h1>
+      <p>Have a question about a project, an order, or our club? Fill out the form below or reach out to us directly. We'd love to hear from you!</p>
+    </div>
 
-  <label>Mobile Number:</label>
-  <input type="text" id="mobile" required placeholder="10 digit number">
+    <div class="contact-body">
+      <!-- Left Column: Contact Info -->
+      <div class="contact-info">
+        <h3>Contact Information</h3>
+        <p>Feel free to contact us through any of the following methods:</p>
+        <ul>
+          <li><i class="fas fa-map-marker-alt"></i> The Icon Public School, Ahmadnagar, Maharashtra, India</li>
+          <li><i class="fas fa-envelope"></i> <a href="mailto:contact@iconpublicschools.org">contact@iconpublicschools.org</a></li>
+          <li><i class="fas fa-phone"></i> <a href="tel:+919420157827">+91 94201 57827</a></li>
+        </ul>
+        <p>We are available from Monday to Friday, 9:00 AM to 4:00 PM IST.</p>
+      </div>
 
-  <label>Email (optional):</label>
-  <input type="email" id="email" placeholder="Enter email">
-
-  <label>Message:</label>
-  <textarea id="message" rows="4" required placeholder="Type your message"></textarea>
-
-  <button type="submit">Send Message</button>
-  <div class="msg" id="msg"></div>
-</form>
-
-    </section>
+      <!-- Right Column: Contact Form -->
+      <div class="contact-form-container">
+        <!-- Add your Formspree URL to the action attribute -->
+        <form id="contactForm" action="https://formspree.io/f/your_unique_id" method="POST">
+          <div class="form-group">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" name="name" required placeholder="Enter your full name">
+          </div>
+          <div class="form-group">
+            <label for="mobile">Mobile Number</label>
+            <input type="text" id="mobile" name="mobile" required placeholder="Enter a 10-digit number">
+          </div>
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="Optional: yourname@example.com">
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" required placeholder="Type your message here..."></textarea>
+          </div>
+          <button type="submit">Send Message</button>
+          <div class="msg" id="msg"></div>
+        </form>
+      </div>
+    </div>
   </main>
 
   <!-- Footer -->
   <footer>
-    <p>&copy; 2025 School Club Store. All Rights Reserved.</p>
+    <div id="footer-placeholder"></div>
   </footer>
 
+  <!-- Scripts -->
+  <script src="nav.js"></script>
   <script>
-  const nameInput = document.getElementById("name");
-  const mobileInput = document.getElementById("mobile");
-  const messageInput = document.getElementById("message");
+    const contactForm = document.getElementById("contactForm");
+    const nameInput = document.getElementById("name");
+    const mobileInput = document.getElementById("mobile");
+    const messageInput = document.getElementById("message");
+    const msgDiv = document.getElementById("msg");
 
-  // Allow only letters and spaces for Name
-  nameInput.addEventListener("input", () => {
-    nameInput.value = nameInput.value.replace(/[^A-Za-z\s]/g, '');
-  });
+    // --- Input Validation ---
+    nameInput.addEventListener("input", () => {
+      nameInput.value = nameInput.value.replace(/[^A-Za-z\s]/g, '');
+    });
 
-  // Allow only digits and max 10 characters for Mobile
-  mobileInput.addEventListener("input", () => {
-    mobileInput.value = mobileInput.value.replace(/\D/g, '').slice(0,10);
-  });
+    mobileInput.addEventListener("input", () => {
+      mobileInput.value = mobileInput.value.replace(/\D/g, '').slice(0, 10);
+    });
+    
+    // --- Form Submission Handler ---
+    contactForm.addEventListener("submit", function(e) {
+      let errors = [];
+      msgDiv.textContent = ''; // Clear previous messages
 
-  // Ensure message is at least 10 characters (optional real-time feedback)
-  messageInput.addEventListener("input", () => {
-    if(messageInput.value.length < 10){
-      messageInput.style.borderColor = "red";
-    } else {
-      messageInput.style.borderColor = "green";
-    }
-  });
+      if (mobileInput.value.length !== 10) {
+        errors.push("Please enter a valid 10-digit mobile number.");
+      }
+      if (messageInput.value.length < 10) {
+        errors.push("Message must be at least 10 characters long.");
+      }
 
-  document.getElementById("contactForm").addEventListener("submit", function(e){
-    e.preventDefault();
-    if(messageInput.value.length < 10){
-      alert("Message must be at least 10 characters!");
-      return;
-    }
-    document.getElementById("msg").textContent = `✅ Thank you ${nameInput.value}, we received your message!`;
-    document.getElementById("contactForm").reset();
-  });
-</script>
+      if (errors.length > 0) {
+        e.preventDefault(); // Stop the form from submitting
+        msgDiv.textContent = '❌ ' + errors.join(' ');
+        msgDiv.style.color = "#d9534f";
+      } else {
+        msgDiv.textContent = "✅ Sending your message...";
+        msgDiv.style.color = "#5cb85c";
+      }
+    });
+  </script>
 </body>
 
 </html>
