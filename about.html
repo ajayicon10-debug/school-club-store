@@ -1,36 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>About Us - School Club Store</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us - Robotics Club</title>
+  <!-- Link to Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <!-- Link to your main stylesheet -->
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
   <!-- Header -->
   <header>
-    <div class="logo">🏫 School Club Store</div>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="about.html" class="active">About Us</a>
-      <a href="team.html">Our Team</a>
-      <a href="contact.html">Contact Us</a>
-    </nav>
+    <div id="nav-placeholder"></div>
   </header>
 
   <!-- Main Content -->
-  <main>
-    <section class="about-section">
-      <h2>About Our School Clubs</h2>
-      <p>Welcome to our School Club Store website! Here you can find and buy amazing projects created by our talented students.</p>
-      <p>Our School Website: <a href="https://www.iconpublicschools.org" target="_blank">www.yourschoolwebsite.com</a></p>
-      <p>Instagram: <a href="https://www.instagram.com/theiconpublicschool" target="_blank">@yourschool</a></p>
-    </section>
+  <main class="about-container">
+    <div class="about-header">
+      <h1>Where Curiosity Meets Creation</h1>
+      <p>Welcome to the official page of the Robotics Club! We are a passionate group of students, thinkers, and builders from Ahmadnagar, Maharashtra, dedicated to exploring the exciting world of robotics and technology. This website showcases the incredible projects born from our curiosity and hard work.</p>
+    </div>
+
+    <!-- Optional: Add a real photo of your club here for a great visual impact -->
+    <!-- <img src="images/your-club-photo.jpg" alt="Robotics Club Members" class="about-image"> -->
+    
+
+    <div class="about-columns">
+      <section class="about-section">
+        <h3><i class="fas fa-rocket"></i> Our Mission</h3>
+        <p>Our goal is to foster a collaborative environment where students can learn, innovate, and bring their ideas to life. We aim to develop skills in engineering, programming, and problem-solving through hands-on projects and friendly competition.</p>
+      </section>
+
+      <section class="about-section">
+        <h3><i class="fas fa-store"></i> The Club Store</h3>
+        <p>The projects you see in our store are all designed and built by our talented club members. Every purchase directly supports our club, helping us buy new components, tools, and materials for our next generation of creations.</p>
+      </section>
+    </div>
+
+    <div class="about-footer">
+      <h3>Get Connected</h3>
+      <p>Follow our journey and see our latest projects on social media, or visit our school's official website to learn more about our community.
+      <br><small>Last updated: September 19, 2025</small>
+      </p>
+      <div class="social-links-about">
+        <a href="https://iconpublicschools.org/" target="_blank" class="about-button">
+          <i class="fas fa-globe"></i> School Website
+        </a>
+        <a href="https://www.instagram.com/theiconpublicschool" target="_blank" class="about-button">
+          <i class="fab fa-instagram"></i> Instagram
+        </a>
+      </div>
+    </div>
   </main>
 
   <!-- Footer -->
   <footer>
-    <p>&copy; 2025 Robotics Club Store. All Rights Reserved.</p>
+    <div id="footer-placeholder"></div>
   </footer>
+
+  <!-- Script to load the navbar and footer -->
+  <script src="nav.js"></script>
 </body>
+
 </html>
