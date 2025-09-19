@@ -6,8 +6,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Icon Robotics Club</title>
   <link rel="stylesheet" href="style.css">
+  <!-- <link rel="stylesheet" href="nav.css"> -->
 
-  <script type="module">
+
+</head>
+
+<body>
+  <!-- Header -->
+  <header>
+  <div id="nav-placeholder"></div>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</header>
+
+  <!-- Main -->
+  <main id="clubs-container"></main>
+
+  <!-- Footer -->
+  <footer>
+    <div id="footer-placeholder"></div>
+  </footer>
+  <script src="nav.js"></script>
+
+    <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
     import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
@@ -143,28 +163,11 @@
     }
 
     window.onload = loadProducts;
+    
   </script>
-</head>
 
-<body>
-  <!-- Header -->
-  <header>
-    <div class="logo">🏫 School Club Store</div>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="about.html">About Us</a>
-      <a href="team.html">Our Team</a>
-      <a href="contact.html">Contact Us</a>
-    </nav>
-  </header>
 
-  <!-- Main -->
-  <main id="clubs-container"></main>
 
-  <!-- Footer -->
-  <footer>
-    <p>&copy; 2025 Robotics Club Store. All Rights Reserved.</p>
-  </footer>
 </body>
 
 </html>
