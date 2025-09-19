@@ -1,3 +1,11 @@
+/* ================================================= */
+/* === FINAL CONSOLIDATED style.css FILE === */
+/* ================================================= */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
 /* General */
 body {
   font-family: Arial, sans-serif;
@@ -10,23 +18,109 @@ body {
 header {
   background: #004080;
   color: white;
-  padding: 15px;
+  padding: 15px 20px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  position: relative; /* Important for the mobile menu */
 }
-header .logo {
-  font-size: 1.2em;
+
+/* --- MERGED NAVIGATION STYLES --- */
+nav {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+nav .logo {
+  font-size: 1.2rem;
   font-weight: bold;
 }
-header nav a {
-  color: white;
-  margin: 0 10px;
-  text-decoration: none;
+
+.nav-links {
+  list-style: none;
+  display: flex; /* Default for desktop */
+  gap: 15px;
+  margin: 0 0 0 25px; /* Adds space between logo and links */
+  padding: 0;
 }
-header nav a:hover {
+
+.nav-links li a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+}
+.nav-links li a:hover {
   text-decoration: underline;
 }
+
+.menu-toggle {
+  display: none; /* Hide hamburger on desktop */
+}
+
+.menu-toggle span {
+  height: 3px;
+  width: 25px;
+  background: white;
+  margin: 4px 0;
+  border-radius: 2px;
+}
+
+#nav-placeholder {
+  flex-grow: 1;
+}
+
+
+/* --- END NAVIGATION STYLES --- */
+
+
+/* --- MOBILE STYLES (@media query) --- */
+@media (max-width: 768px) {
+  /* === NEW ANIMATED MENU STYLES === */
+
+  /* Inside the @media (max-width: 768px) section */
+
+  .nav-links {
+    /* Reset the desktop margin */
+    margin: 0; /* <-- ADD THIS LINE */
+
+    /* These are your existing animation styles */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+    
+    /* These are your existing layout styles */
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background: #004080;
+    text-align: center;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 10;
+    padding: 20px 0;
+  }
+
+  .nav-links.active {
+    /* Make it visible */
+    visibility: visible;
+    opacity: 1;
+
+    /* Move it to its final position */
+    transform: translateY(0);
+  }
+
+  /* === THE DEFINITIVE FIX === */
+  .menu-toggle {
+    display: flex; /* Show the hamburger icon */
+    flex-direction: column;
+    cursor: pointer;
+    margin-left: auto; /* Pushes the icon to the far right */
+  }
+}
+/* --- END MOBILE STYLES --- */
+
 
 /* Club Section */
 .club-section {
@@ -42,16 +136,19 @@ header nav a:hover {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 20px;
+
 }
+
 .card {
   background: white;
   border-radius: 10px;
   padding: 15px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
   text-align: center;
-  overflow: hidden;
-  height: 350px;
+  display: flex;          /* <-- ADD THIS */
+  flex-direction: column; /* <-- ADD THIS */
 }
+
 .card h3 {
   margin: 10px 0 5px;
 }
@@ -64,17 +161,19 @@ header nav a:hover {
 .media-slider {
   position: relative;
   width: 100%;
-  height: 200px;
+  aspect-ratio: 4 / 3; /* <-- ADD THIS (width / height) */
+  height: auto;        /* <-- CHANGE THIS to auto */
   margin-bottom: 10px;
   overflow: hidden;
   border-radius: 10px;
   background: #ddd;
 }
+
 .media-slider img,
 .media-slider iframe {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain; /* <-- CHANGE THIS from 'cover' */
   display: block;
   border: none;
 }
@@ -93,17 +192,405 @@ footer {
   margin-top: 30px;
 }
 
+/* Order Button */
 .order-btn {
   display: inline-block;
   margin-top: 10px;
   padding: 8px 12px;
-  background-color: #25D366; /* WhatsApp green */
+  background-color: #25D366;
   color: white;
   border-radius: 6px;
   text-decoration: none;
   font-weight: bold;
 }
-
 .order-btn:hover {
   background-color: #128C7E;
+}
+
+
+/* ================================= */
+/* === Our Team Page Styles === */
+/* ================================= */
+
+.team-page-section {
+  max-width: 1550px; /* Change from 1200px */
+  margin: 0 auto;
+  padding: 10px 30px 30px;
+}
+
+/* Center the titles as requested */
+
+/* === OPTION 2: GRADIENT TEXT FOR H2 === */
+.team-page-section h2 {
+  font-size: 3em; /* Gradient text looks best when it's a bit bigger */
+  background-image: linear-gradient(45deg, #004080, #25D366);
+  background-clip: text;
+  -webkit-background-clip: text; /* For older browser support */
+  color: transparent;
+  padding-bottom: 10px;
+}
+
+.team-page-section h3 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #004080;
+}
+
+
+.team-grid {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 30px; /* Increased gap for better spacing */
+  justify-content: center;
+  margin-bottom: 50px;
+}
+
+/*
+.team-grid {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  gap: 30px;
+  justify-content: flex-start;
+  margin-bottom: 50px;
+  padding-bottom: 20px;
+}
+*/
+
+/* === DESIGN OPTION 1: PROFILE OVERLAY === */
+
+
+/* === DESIGN OPTION 2: DYNAMIC PROFILE === */
+.team-member {
+  background: rgb(255, 255, 255);
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  text-align: center;
+  padding: 20px;
+  width: 250px;
+  position: relative; /* Needed for positioning the image */
+  margin-top: 60px; /* Make space for the overlapping image */
+}
+
+.team-member img {
+  width: 140px;  /* Changed from 120px */
+  height: 140px; /* Changed from 120px */
+  border-radius: 50%;
+  object-fit: cover;
+  border: 5px solid white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  position: absolute;
+  top: -70px;    /* IMPORTANT: Must be negative half of the new height */
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* This is your main rule for desktop */
+.team-member h4 {
+  margin: 80px 0 5px 0; /* Set the desktop margin here */
+  font-size: 1.2em;
+  color: #333;
+}
+
+/* Styles for both class and house paragraphs */
+.team-member p {
+  font-size: 0.9em;
+  color: #666;
+  margin: 2px 0; /* Adds a tiny bit of space between class and house */
+  line-height: 1.4;
+}
+
+/* Styles the shape of the house tag */
+.team-member .house-info {
+  display: inline-block;  /* Allows background to wrap the text */
+  padding: 5px 12px;      /* Adds space inside the colored box */
+  border-radius: 15px;    /* Makes the corners fully rounded */
+  color: rgb(0, 0, 0);           /* White text looks best on a colored background */
+  font-size: 0.8em;
+  font-weight: bold;
+  margin-top: 5px;        /* Adds a little space above the house tag */
+  margin-bottom: 15px;
+}
+
+.team-member.teacher-card {
+  width: 300px;
+  height: 200px;
+}
+
+.social-links a {
+  color: #004080;
+  margin: 0 8px;
+  font-size: 1.2em;
+  transition: color 0.3s ease;
+}
+
+.social-links a:hover {
+  color: #25D366;
+}
+
+.team-member:hover {
+  transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+
+/* Hover effect for interactivity */
+.team-member:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+
+
+
+/* =============================== */
+/* === About Page Styles === */
+/* =============================== */
+
+.about-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  color: #333;
+}
+
+.about-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.about-header h1 {
+  font-size: 2.8em;
+  color: #004080;
+  margin-bottom: 15px;
+}
+
+.about-header p {
+  font-size: 1.1em;
+  line-height: 1.6;
+  color: #555;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* Optional style for a photo */
+.about-image {
+  width: 100%;
+  border-radius: 15px;
+  margin-bottom: 40px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.about-columns {
+  display: flex;
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.about-section {
+  flex: 1; /* Makes both columns equal width */
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+  border-top: 5px solid #004080;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.about-section h3 {
+  font-size: 1.5em;
+  color: #004080;
+  margin-top: 0;
+  display: flex;
+  align-items: center;
+}
+
+.about-section h3 i {
+  font-size: 0.9em;
+  margin-right: 12px;
+  background-color: #004080;
+  color: white;
+  padding: 8px;
+  border-radius: 50%;
+}
+
+.about-section p {
+  line-height: 1.7;
+  color: #444;
+}
+
+.about-footer {
+  text-align: center;
+  background: #f8f9fa;
+  padding: 30px;
+  border-radius: 15px;
+}
+
+.about-button {
+  display: inline-block;
+  background-color: #004080;
+  color: white;
+  padding: 12px 25px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: bold;
+  margin: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.about-button:hover {
+  background-color: #0059b3;
+}
+
+/* Make the columns stack on mobile */
+@media (max-width: 768px) {
+  .about-columns {
+    flex-direction: column;
+  }
+}
+
+
+
+/* =============================== /
+/ === Contact Page Styles === /
+/ =============================== */
+
+.contact-container {
+max-width: 1100px;
+margin: 0 auto;
+padding: 40px 20px;
+}
+
+.contact-header {
+text-align: center;
+margin-bottom: 40px;
+}
+
+.contact-header h1 {
+font-size: 2.8em;
+color: #004080;
+margin-bottom: 15px;
+}
+
+.contact-header p {
+font-size: 1.1em;
+line-height: 1.6;
+color: #555;
+max-width: 600px;
+margin: 0 auto;
+}
+
+.contact-body {
+display: flex;
+gap: 40px;
+background: white;
+padding: 30px;
+border-radius: 15px;
+box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+}
+
+.contact-info,
+.contact-form-container {
+flex: 1; /* Make both columns equal width */
+}
+
+.contact-info h3 {
+font-size: 1.6em;
+color: #004080;
+margin-top: 0;
+border-bottom: 3px solid #004080;
+padding-bottom: 10px;
+}
+
+.contact-info p {
+line-height: 1.7;
+color: #444;
+}
+
+.contact-info ul {
+list-style: none;
+padding: 0;
+margin: 20px 0;
+}
+
+.contact-info ul li {
+display: flex;
+align-items: center;
+margin-bottom: 15px;
+font-size: 1.1em;
+}
+
+.contact-info ul li i {
+font-size: 1.2em;
+color: #004080;
+width: 30px; /* Aligns the text nicely */
+}
+
+.contact-info a {
+color: #333;
+text-decoration: none;
+transition: color 0.3s ease;
+}
+
+.contact-info a:hover {
+color: #0059b3;
+}
+
+/* --- Form Styles --- */
+.form-group {
+margin-bottom: 20px;
+}
+
+.form-group label {
+display: block;
+font-weight: bold;
+margin-bottom: 8px;
+color: #333;
+}
+
+.form-group input,
+.form-group textarea {
+width: 100%;
+padding: 12px;
+border: 1px solid #ccc;
+border-radius: 8px;
+font-size: 1em;
+transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+outline: none;
+border-color: #004080;
+box-shadow: 0 0 8px rgba(0, 64, 128, 0.2);
+}
+
+.contact-form-container button {
+width: 100%;
+padding: 15px;
+background: #004080;
+color: white;
+border: none;
+border-radius: 8px;
+font-size: 1.1em;
+font-weight: bold;
+cursor: pointer;
+transition: background-color 0.3s ease;
+}
+
+.contact-form-container button:hover {
+background: #0059b3;
+}
+
+.msg {
+text-align: center;
+margin-top: 15px;
+font-weight: bold;
+padding: 10px;
+border-radius: 8px;
+}
+
+/* Make columns stack on mobile */
+@media (max-width: 900px) {
+.contact-body {
+flex-direction: column;
+}
 }
